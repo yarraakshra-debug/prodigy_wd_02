@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="script.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmpSphere | Administrative Portal</title>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ================= AUTH VIEW ================= -->
+  <div id="auth-view" class="auth-container">
+    <div class="auth-card">
+      <div class="logo-icon">ES</div>
+      <h2>EmpSphere Portal</h2>
+      <p class="auth-subtitle">Sign in to manage employee records securely</p>
+      
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="login-email">Administrator Email</label>
+          <div class="input-wrapper">
+            <span class="input-icon"><i data-lucide="mail"></i></span>
+            <input type="email" id="login-email" class="form-control" placeholder="admin@company.com" autocomplete="email" required>
+          </div>
+          <div id="login-email-error" class="error-message"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <div class="input-wrapper">
+            <span class="input-icon"><i data-lucide="lock"></i></span>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
+          </div>
+          <div id="login-password-error" class="error-message"></div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">
+          <span>Sign In</span>
+          <i data-lucide="arrow-right"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  <!-- ================= DASHBOARD VIEW ================= -->
+  <div id="dashboard-view" class="dashboard hidden">
+    <!-- Navbar Header -->
+    <header class="navbar">
+      <div class="nav-brand">
+        <i data-lucide="shield-check"></i>
+        <span>EmpSphere</span>
+      </div>
+      <div class="nav-actions">
+        <div class="user-profile">
+          <div class="avatar" id="admin-avatar">A</div>
+          <span id="admin-display-name">admin@company.com</span>
+        </div>
+        <button id="logout-btn" class="btn btn-logout">
+          <span>Logout</span>
+          <i data-lucide="log-out"></i>
+        </button>
+      </div>
+    </header>
+    <!-- Main Container -->
+    <main class="container fade-in">
+      
+      <!-- Metrics Section -->
+      <section class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-info">
+            <h3>Total Employees</h3>
+            <div id="metric-total" class="metric-value">0</div>
+          </div>
+          <div class="metric-icon">
+            <i data-lucide="users"></i>
+          </div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-info">
+            <h3>Average Salary</h3>
+            <div id="metric-avg-salary" class="metric-value">$0</div>
+          </div>
+          <div class="metric-icon">
+            <i data-lucide="dollar-sign"></i>
+          </div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-info">
+            <h3>Top Role</h3>
+            <div id="metric-top-role" class="metric-value">N/A</div>
+          </div>
+          <div class="metric-icon">
+            <i data-lucide="award"></i>
+          </div>
+        </div>
+      </section>
+      <!-- Interactive CRUD Workspace -->
+      <div class="workspace-grid">
+        
+        <!-- Left: Form panel -->
+        <section class="card-panel">
+          <div class="card-header">
+            <h2 id="form-title">
+              <i data-lucide="user-plus"></i>
+              <span>Add New Employee</span>
+            </h2>
+          </div>
+          
+          <form id="employee-form" novalidate>
+            <input type="hidden" id="employee-id">
+            
+            <div class="form-group">
+              <label for="emp-name">Full Name</label>
+              <div class="input-wrapper">
+                <span class="input-icon"><i data-lucide="user"></i></span>
+                <input type="text" id="emp-name" class="form-control" placeholder="e.g. Jane Doe" required>
+              </div>
+              <div id="emp-name-error" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+              <label for="emp-role">Role / Position</label>
+              <div class="input-wrapper">
+                <span class="input-icon"><i data-lucide="briefcase"></i></span>
+                <select id="emp-role" class="form-control" required>
+                  <option value="" disabled selected>Select position...</option>
+                  <option value="Software Engineer">Software Engineer</option>
+                  <option value="Product Manager">Product Manager</option>
+                  <option value="UX Designer">UX Designer</option>
+                  <option value="QA Engineer">QA Engineer</option>
+                  <option value="Data Analyst">Data Analyst</option>
+                  <option value="HR Manager">HR Manager</option>
+                  <option value="Sales Representative">Sales Representative</option>
+                </select>
+              </div>
+              <div id="emp-role-error" class="error-message"></div>
+            </div>
+            
+            <div class="form-group">
+              <label for="emp-salary">Annual Salary (USD)</label>
+              <div class="input-wrapper">
+                <span class="input-icon"><i data-lucide="dollar-sign"></i></span>
+                <input type="number" id="emp-salary" class="form-control" placeholder="e.g. 85000" min="1000" step="1000" required>
+              </div>
+              <div id="emp-salary-error" class="error-message"></div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" id="submit-btn" class="btn btn-primary">
+                <i data-lucide="plus"></i>
+                <span>Add Employee</span>
+              </button>
+              <button type="button" id="cancel-btn" class="btn btn-secondary hidden">
+                <span>Cancel</span>
+              </button>
+            </div>
+          </form>
+        </section>
+        <!-- Right: Table List panel -->
+        <section class="card-panel">
+          <div class="card-header">
+            <h2>
+              <i data-lucide="list"></i>
+              <span>Employee Registry</span>
+            </h2>
+            <div class="search-box">
+              <div class="input-wrapper">
+                <span class="input-icon"><i data-lucide="search"></i></span>
+                <input type="text" id="search-input" class="form-control" placeholder="Search employees by name...">
+              </div>
+            </div>
+          </div>
+          
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Role</th>
+                  <th>Salary</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="employees-tbody">
+                <!-- JavaScript renders records dynamically here -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 EmpSphere. Secure Administrative Workspace.</p>
+    </footer>
+  </div>
+  <!-- Toast Notification Wrapper -->
+  <div id="toast-container"></div>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Application JS Code -->
+  <script src="app.js"></script>
+</body>
+</html>
