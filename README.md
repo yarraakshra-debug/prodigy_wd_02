@@ -58,5 +58,5 @@ Future Enhancements
 * Profile Image Upload
 * Attendance Management
 * Report Generation
-
+##Author
 developed as part of the prodigy InfoTech internship program
