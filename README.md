@@ -59,6 +59,4 @@ Future Enhancements
 * Attendance Management
 * Report Generation
 
-Author
-
-Developed as part of the CodSoft Internship Program.
+developed as part of the prodigy InfoTech internship program
